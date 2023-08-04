@@ -1,7 +1,7 @@
 import React from "react";
 import BookItem from "./BookItem";
 
-const Bookshelf = ({ shelf, books, handleMove }) => {
+const Bookshelf = ({ shelf, books, handleMove, handeClick }) => {
   const bookOfShelft = books.filter((book) => book.shelf === shelf.key);
   return (
     <div className="bookshelf">
@@ -14,6 +14,7 @@ const Bookshelf = ({ shelf, books, handleMove }) => {
               book={book}
               shelf={shelf.key}
               handleMove={handleMove}
+              handeClick={handeClick}
             />
           ))}
         </ol>

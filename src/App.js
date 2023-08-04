@@ -1,19 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 import SearchBookScreen from "./SearchBookScreen";
 import BookListScreen from "./BookListScreen";
+import BookDetailScreen from "./BookDetailScreen";
 
 const bookshelves = [
   { key: "currentlyReading", name: "Currently Reading" },
   { key: "wantToRead", name: "Want to Read" },
   { key: "read", name: "Read" },
 ];
-const BookApp = () => {
+const BookApp = ({ history }) => {
   const [books, setBook] = useState([]);
   const [searchBooks, setSearchBooks] = useState([]);
   const [error, setError] = useState(false);
+  const [selectedBook, setSelectedBook] = useState();
 
   useEffect(() => {
     BooksAPI.getAll()
@@ -39,6 +41,13 @@ const BookApp = () => {
       setBook(books.filter((b) => b.id !== book.id).concat(book));
     }
   };
+
+  const handeClick = (book) => {
+    console.log(book);
+    setSelectedBook(book);
+    history.push("/detail");
+  };
+
   const searchForBooks = (query) => {
     if (query.length > 0) {
       BooksAPI.search(query).then((books) => {
@@ -69,6 +78,7 @@ const BookApp = () => {
             bookshelves={bookshelves}
             books={books}
             handleMove={moveBook}
+            handeClick={handeClick}
           />
         )}
       />
@@ -84,8 +94,12 @@ const BookApp = () => {
           />
         )}
       />
+      <Route
+        path="/detail"
+        render={() => <BookDetailScreen book={selectedBook} />}
+      />
     </div>
   );
 };
 
-export default BookApp;
+export default withRouter(BookApp);
