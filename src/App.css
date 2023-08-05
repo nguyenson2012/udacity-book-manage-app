@@ -198,3 +198,9 @@ button:active {
   text-align: center;
   font-size: 0.8em;
 }
+
+.book-detail {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}

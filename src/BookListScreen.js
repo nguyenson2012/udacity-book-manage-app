@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Bookshelf from "./Bookshelf";
 
-const BookListScreen = ({ bookshelves, books, handleMove }) => {
+const BookListScreen = ({ bookshelves, books, handleMove, handeClick }) => {
   return (
     <div className="list-books">
       <div className="list-books-title">
@@ -16,6 +16,7 @@ const BookListScreen = ({ bookshelves, books, handleMove }) => {
               shelf={item}
               books={books}
               handleMove={handleMove}
+              handeClick={handeClick}
             />
           ))}
         </div>
